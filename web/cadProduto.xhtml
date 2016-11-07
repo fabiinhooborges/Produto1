@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+    <ui:define name="content">
+
+
+        <center>
+            <h:form id="formCadastro" style="width: 920px;text-align: left ">
+
+
+                <div class=" panel panel-primary" style="margin-top: 7%">
+                    <div class="panel-heading" style="text-align: center;font-size: 120%; font-weight: bold;
+                         text-align: left">Cadastro de Veiculos</div>
+                </div>
+
+
+
+
+                <div class="panel panel-default" style="margin-top: 2%">
+                    <div class="panel-heading" style="font-weight: bold">Dados do Veiculo</div>
+                    <div class="panel-body">
+
+
+
+                        <div class="row" style="text-align: left">
+                            <div class="col-lg-6">
+
+                                <p:commandButton icon="fa fa-plus" value="Novo" action="#{cadProdutoMB.limpar()}" update="formCadastro" styleClass="btnMenu"/>
+                                <p:commandButton  icon="ui-icon-disk"  action="#{cadProdutoMB.cadastrarProduto()}" value="Salvar" style="margin-left: 1%" styleClass="btnMenu"/>
+                                <p:commandButton icon="ui-icon-search" value="Listar" style="margin-left: 1%" styleClass="btnMenu" update="formCadastro" action="#{cadProdutoMB.listarProdutos()}"/>
+                            </div>
+                        </div>
+                        <br/> 
+
+                        <div class="row" style="text-align: left">
+                            <div class="col-lg-3" >
+                                <h:outputLabel value="Nome:" style="display: block" styleClass="fontInput"/>
+                                <p:inputText value="#{cadProdutoMB.produto.nome}" styleClass="fontInput" style="width: 205px"/>
+                            </div>
+
+                            <div class="col-lg-3">
+                                <h:outputLabel value="Marca:" style="display: block" styleClass="fontInput"/>
+                                <p:inputText  value="#{cadProdutoMB.produto.marca}" styleClass="fontInput" style="width: 100%"/>
+                            </div>
+
+                            <div class="col-lg-3">
+                                <h:outputLabel value="Valor:" style="display: block" styleClass="fontInput"/>
+                                <p:inputNumber value="#{cadProdutoMB.produto.valor}" styleClass="fontInput" style="width: 100%">
+
+                                </p:inputNumber>
+                            </div>
+
+                            <div class="col-lg-3" >
+                                <h:outputLabel value="Quantidade:" style="display: block;" styleClass="fontInput"/>
+                                <p:inputNumber value="#{cadProdutoMB.produto.quantidade}" styleClass="fontInput"/>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <p:panel header="Lista de Veiculos" rendered="#{cadProdutoMB.produtos.size() > 0}">
+                    <p:dataTable value="#{cadProdutoMB.produtos}" var="produto" style="text-align: center">
+
+                        <p:column style="color: black; font-weight: bold" headerText="Código"  >
+                            <h:outputText value="#{produto.id}" styleClass="fontInput"/>
+                        </p:column>
+
+                        <p:column style="color: black; font-weight: bold" headerText="Nome"  >
+                            <h:outputText value="#{produto.nome}" styleClass="fontInput"/>
+                        </p:column>
+
+                        <p:column style="color: black; font-weight: bold" headerText="Marca"  >
+                            <h:outputText value="#{produto.marca}" styleClass="fontInput"/>
+                        </p:column>
+
+                        <p:column style="color: black; font-weight: bold" headerText="Valor"  >
+                            <h:outputText value="#{produto.valor}" styleClass="fontInput">
+                                <f:convertNumber type="currency" />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column style="color: black; font-weight: bold" headerText="Quantidade"  >
+                            <h:outputText value="#{produto.quantidade}" styleClass="fontInput">        
+                            </h:outputText>
+                        </p:column>
+                        
+                         <p:column style="color: black; font-weight: bold" headerText="Deletar" >
+                             <p:commandButton icon="ui-icon-close" action="#{cadProdutoMB.deletar(produto)}" update="formCadastro"/>
+                        </p:column>
+
+
+                    </p:dataTable>
+                </p:panel>
+
+
+            </h:form>
+        </center>
+    </ui:define>        
+
+</ui:composition>
